@@ -19,7 +19,7 @@ import struct
 import time
 from typing import Optional
 
-# ── Colours ────────────────────────────────────────────────────────────────────
+# ---Colours---
 
 RESET  = "\033[0m"
 BOLD   = "\033[1m"
@@ -50,7 +50,9 @@ def fail(msg):  print(f"  {c(RED,   '[-]')} {msg}")
 def warn(msg):  print(f"  {c(YELLOW,'[!]')} {msg}")
 def dim(msg):   print(f"  {c(DIM,   '   ')} {msg}")
 
-# ── TCP Knock ──────────────────────────────────────────────────────────────────
+
+
+# ---TCP Knock---
 
 async def tcp_knock(host: str, port: int, timeout: float = 1.0) -> bool:
     """Send a single TCP knock. Returns True if connection was accepted."""
@@ -63,7 +65,9 @@ async def tcp_knock(host: str, port: int, timeout: float = 1.0) -> bool:
     except (asyncio.TimeoutError, ConnectionRefusedError, OSError):
         return False
 
-# ── UDP Knock ──────────────────────────────────────────────────────────────────
+
+
+# ---UDP Knock---
 
 async def udp_knock(host: str, port: int) -> None:
     """Send a single UDP knock packet."""
@@ -78,7 +82,9 @@ def _udp_send(host: str, port: int) -> None:
     finally:
         sock.close()
 
-# ── Knock Sequence ─────────────────────────────────────────────────────────────
+
+
+# ---Knock Sequence---
 
 async def run_knock_sequence(
     host: str,
@@ -106,7 +112,9 @@ async def run_knock_sequence(
     print()
     ok(f"Knock sequence complete.")
 
-# ── Port Scan ──────────────────────────────────────────────────────────────────
+
+
+# ---Port Scan---
 
 async def scan_port(host: str, port: int, timeout: float = 2.0) -> tuple[int, bool]:
     """Async TCP connect scan of a single port."""
@@ -141,7 +149,9 @@ async def run_scan(host: str, ports: list[int]) -> list[int]:
 
     return open_ports
 
-# ── Banner Grab ────────────────────────────────────────────────────────────────
+
+
+# ---Banner Grab---
 
 async def grab_banner(host: str, port: int, timeout: float = 3.0) -> Optional[str]:
     """Attempt to grab a service banner from an open port."""
@@ -200,7 +210,9 @@ async def run_banner_grab(host: str, ports: list[int]) -> None:
             print(f"    {c(DIM, '↳ no banner received')}")
         print()
 
-# ── Argument Parsing ───────────────────────────────────────────────────────────
+
+
+# ---Argument Parsing---
 
 def parse_ports(port_str: str) -> list[int]:
     """Parse a comma-separated port string like '22,80,443' into a list."""
@@ -250,7 +262,9 @@ examples:
     )
     return parser
 
-# ── Main ───────────────────────────────────────────────────────────────────────
+
+
+# ---Main---
 
 async def main():
     parser = build_parser()
